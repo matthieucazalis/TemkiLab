@@ -1,0 +1,72 @@
+import bcrypt from "bcryptjs";
+import { prisma } from "@/lib/prisma";
+
+export class EmailTakenError extends Error {}
+
+export async function registerUser(input: {
+  name: string;
+  email: string;
+  password: string;
+}) {
+  const existing = await prisma.user.findUnique({
+    where: { email: input.email },
+  });
+  if (existing) throw new EmailTakenError();
+
+  const passwordHash = await bcrypt.hash(input.password, 12);
+  try {
+    return await prisma.user.create({
+      data: { name: input.name, email: input.email, passwordHash },
+      select: { id: true, email: true, name: true },
+    });
+  } catch (e) {
+    // deux inscriptions simultanées avec le même email : la contrainte
+    // d'unicité de la base tranche (code Prisma P2002)
+    if ((e as { code?: string }).code === "P2002") throw new EmailTakenError();
+    throw e;
+  }
+}
+
+const DUMMY_HASH = bcrypt.hashSync("mot-de-passe-factice", 12);
+
+export async function verifyCredentials(email: string, password: string) {
+  const user = await prisma.user.findUnique({ where: { email } });
+  const ok = await bcrypt.compare(password, user?.passwordHash ?? DUMMY_HASH);
+  // un compte anonymisé (droit à l'effacement) ne peut plus se connecter
+  if (!user || !ok || user.deletedAt) return null;
+  return { id: user.id, email: user.email, name: user.name };
+}
+
+export class WrongPasswordError extends Error {}
+
+export async function getUserById(id: string) {
+  return prisma.user.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      avatar: true,
+      createdAt: true,
+    },
+  });
+}
+
+export async function updateProfile(userId: string, name: string) {
+  return prisma.user.update({ where: { id: userId }, data: { name } });
+}
+
+export async function changePassword(
+  userId: string,
+  currentPassword: string,
+  newPassword: string,
+) {
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  if (!user) throw new WrongPasswordError();
+
+  const ok = await bcrypt.compare(currentPassword, user.passwordHash);
+  if (!ok) throw new WrongPasswordError();
+
+  const passwordHash = await bcrypt.hash(newPassword, 12);
+  await prisma.user.update({ where: { id: userId }, data: { passwordHash } });
+}

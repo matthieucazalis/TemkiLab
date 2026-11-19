@@ -84,3 +84,4 @@ Voir [`docs/`](docs/README.md) : architecture, API, i18n, tests, déploiement (D
 
 > **Note** : `npm install` utilise `legacy-peer-deps` (fichier `.npmrc`) à cause d'un conflit de dépendances
 > optionnelles ; ne le supprime pas sans tester l'installation.
+# TemkiLab

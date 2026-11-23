@@ -1,83 +1,78 @@
-// modèle pédagogique : il sert à comparer des objectifs
-// et des boîtiers, pas à simuler une vraie lentille.
-
-function assertPostitive (name: string, value: number) {
-    if (!Number.isFinite(value) || value <= 0) {
-        throw new RangeError(
-            `${name} doit être un nombre positif (reçus : ${value})`
-        );
-    }
+// Formules optiques de TemkiLab : des fonctions PURES.
+// Pas de React, pas de Prisma, pas de navigateur : on donne des nombres,
+// on récupère un nombre. C'est ce qui les rend faciles à tester.
+function assertPositive(name: string, value: number) {
+  if (!Number.isFinite(value) || value <= 0) {
+    throw new RangeError(
+      `${name} doit être un nombre strictement positif (reçu : ${value})`,
+    );
+  }
 }
 
 function assertUnit(name: string, value: number) {
-    if (!Number.isFinite(value) || value < 0 || value > 1) {
-        throw new RangeError(
-            `${name} doit être un nombre compris entre 0 et 1 (reçus : ${value})`
-        );
-    }
+  if (!Number.isFinite(value) || value < 0 || value > 1) {
+    throw new RangeError(
+      `${name} doit être compris entre 0 et 1 (reçu : ${value})`,
+    );
+  }
 }
-
-// équivalent 24x36
 
 export function equivalentFocal(focal: number, cropFactor: number): number {
-    assertPostitive("focal", focal);
-    assertPostitive("cropFactor", cropFactor);
-    return focal * cropFactor;
+  assertPositive("focal", focal);
+  assertPositive("cropFactor", cropFactor);
+  return focal * cropFactor;
 }
 
-// f/N x facteur de recadrage
-
- export function equivalentAperture(aperture: number, cropFactor: number): number {
-    assertUnit("aperture", aperture);
-    assertPostitive("cropFactor", cropFactor);
-    return aperture * cropFactor;
+export function equivalentAperture(
+  aperture: number,
+  cropFactor: number,
+): number {
+  assertPositive("aperture", aperture);
+  assertPositive("cropFactor", cropFactor);
+  return aperture * cropFactor;
 }
-
-// zoom numérique
 
 export function zoomFactor(focalEq: number, refFocalEq: number): number {
-    assertPostitive("focalEq", focalEq);
-    assertPostitive("refFocalEq", refFocalEq);
-    return Math.max(1, focalEq / refFocalEq);
+  assertPositive("focalEq", focalEq);
+  assertPositive("refFocalEq", refFocalEq);
+  return Math.max(1, focalEq / refFocalEq);
 }
 
 export function isBelowReference(focalEq: number, refFocalEq: number): boolean {
-    assertPostitive("focalEq", focalEq);
-    assertPostitive("refFocalEq", refFocalEq);
-    return focalEq < refFocalEq;
+  assertPositive("focalEq", focalEq);
+  assertPositive("refFocalEq", refFocalEq);
+  return focalEq < refFocalEq;
 }
 
 export type BlurInput = {
-    focalEq: number;
-    apertureEq: number;
-    depth: number;
-    focusDepth: number;
+  focalEq: number;
+  apertureEq: number;
+  depth: number;
+  focusDepth: number;
 };
 
 export function blurAmount({
-    focalEq,
-    apertureEq,
-    depth,
-    focusDepth,
+  focalEq,
+  apertureEq,
+  depth,
+  focusDepth,
 }: BlurInput): number {
-    assertPostitive("focalEq", focalEq);
-    assertPostitive("apertureEq", apertureEq);
-    assertPostitive("depth", depth);
-    assertPostitive("focusDepth", focusDepth);
-    return (focalEq / apertureEq) * Math.abs(depth - focusDepth);
+  assertPositive("focalEq", focalEq);
+  assertPositive("apertureEq", apertureEq);
+  assertUnit("depth", depth);
+  assertUnit("focusDepth", focusDepth);
+  return (focalEq / apertureEq) * Math.abs(depth - focusDepth);
 }
 
-// temps de pose ect
-
 export function minShutterSeconds(
-    focalEq: number,
-    stabilizationStops = 0,
+  focalEq: number,
+  stabilizationStops = 0,
 ): number {
-    assertPostitive("focalEq", focalEq);
-    if (!Number.isInteger(stabilizationStops) || stabilizationStops < 0) {
-        throw new RangeError(
-            `stabilizationStops doit être un nombre ≥ 0 (reçus : ${stabilizationStops})`,
-        );
-    }
-    return 2 ** stabilizationStops / focalEq;
+  assertPositive("focalEq", focalEq);
+  if (!Number.isFinite(stabilizationStops) || stabilizationStops < 0) {
+    throw new RangeError(
+      `stabilizationStops doit être un nombre ≥ 0 (reçu : ${stabilizationStops})`,
+    );
+  }
+  return 2 ** stabilizationStops / focalEq;
 }

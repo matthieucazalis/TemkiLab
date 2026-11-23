@@ -12,6 +12,7 @@ const fr = {
   forbiddenChars:
     "Caractères non autorisés (caractères de contrôle ou invisibles).",
   invalid: "Données invalides.",
+  rangeInvalid: "La valeur minimale dépasse la valeur maximale.",
 };
 
 const en: DeepStrings<typeof fr> = {
@@ -23,6 +24,7 @@ const en: DeepStrings<typeof fr> = {
   currentPasswordRequired: "Current password required",
   forbiddenChars: "Characters not allowed (control or invisible characters).",
   invalid: "Invalid data.",
+  rangeInvalid: "The minimum value is greater than the maximum value.",
 };
 
 const de: DeepStrings<typeof fr> = {
@@ -34,6 +36,7 @@ const de: DeepStrings<typeof fr> = {
   currentPasswordRequired: "Aktuelles Passwort erforderlich",
   forbiddenChars: "Nicht erlaubte Zeichen (Steuer- oder unsichtbare Zeichen).",
   invalid: "Ungültige Daten.",
+  rangeInvalid: "Der Mindestwert ist größer als der Höchstwert.",
 };
 
 export const validation = { fr, en, de };

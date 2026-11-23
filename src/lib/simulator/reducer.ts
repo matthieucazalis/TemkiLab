@@ -1,6 +1,5 @@
-// coeur du sim
-// interface web
-
+// Cœur du simulateur : fonctions PURES, sans React ni base de données.
+// L'interface web, les presets et la télécommande mobile passeront tous par ici.
 import {
   defaultRatio,
   flipOrientation,
@@ -9,7 +8,6 @@ import {
 } from "@/lib/optics/ratios";
 import {
   SIMULATOR_LIMITS,
-  type SimulatorPatch,
   type SimulatorState,
 } from "@/lib/validators/simulator";
 
@@ -47,6 +45,8 @@ export type SimulatorAction =
   | { type: "setTilt"; tilt: number }
   | { type: "setFocusPoint"; point: SimulatorState["focusPoint"] }
   | { type: "applyPatch"; patch: SimulatorPatch };
+
+type SimulatorPatch = Partial<SimulatorState>;
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));

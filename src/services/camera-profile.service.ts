@@ -31,8 +31,11 @@ export async function getCameraProfileById(id: string) {
 }
 
 export async function getCameraProfileBySlug(slug: string) {
-  return prisma.cameraProfile.findFirst({
-    where: { slug },
+  const cameraProfiles = await prisma.cameraProfile.findMany({
     select: cameraProfileSelect,
   });
+
+  return (
+    cameraProfiles.find((cameraProfile) => cameraProfile.slug === slug) ?? null
+  );
 }

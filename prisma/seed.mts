@@ -346,20 +346,11 @@ async function main() {
   console.log(`Compte créé : ${EMAIL} / ${PASSWORD}`);
 
   for (const profile of cameraProfiles) {
-    const profileData = Object.fromEntries(
-      Object.entries(profile).filter(([key]) => key !== "slug"),
-    ) as Omit<typeof profile, "slug">;
-    const existingProfile = await prisma.cameraProfile.findFirst({
-      where: { name: profile.name },
+    await prisma.cameraProfile.upsert({
+      where: { slug: profile.slug },
+      update: profile,
+      create: profile,
     });
-    if (existingProfile) {
-      await prisma.cameraProfile.update({
-        where: { id: existingProfile.id },
-        data: profileData,
-      });
-    } else {
-      await prisma.cameraProfile.create({ data: profileData });
-    }
   }
   console.log(`${cameraProfiles.length} boîtiers`);
 

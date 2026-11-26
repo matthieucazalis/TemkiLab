@@ -9,7 +9,7 @@ import {
 
 test.describe("authentification", () => {
   test("une page protégée redirige vers la connexion", async ({ page }) => {
-    await page.goto("/dashboard");
+    await page.goto("/setups");
     await expect(page).toHaveURL(/\/login/);
   });
 
@@ -19,7 +19,7 @@ test.describe("authentification", () => {
     await expect(page).toHaveURL(/\/login/);
 
     // la session est bien terminée
-    await page.goto("/dashboard");
+    await page.goto("/setups");
     await expect(page).toHaveURL(/\/login/);
   });
 

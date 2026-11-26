@@ -84,6 +84,20 @@ export function applySessionAction(
     case "reset":
       return INITIAL_SESSION;
 
+    case "setScene": {
+      const { constraints } = resolveSelection(session, catalog);
+      let sim = applyAction(session.sim, action, constraints);
+      // Un autre décor n'a pas les mêmes distances : on repart du sujet.
+      if (sim.sceneId !== session.sim.sceneId) {
+        sim = applyAction(
+          sim,
+          { type: "setFocusPoint", point: undefined },
+          constraints,
+        );
+      }
+      return sim === session.sim ? session : { ...session, sim };
+    }
+
     case "selectProfile": {
       const known = catalog.profiles.some((p) => p.id === action.id);
       if (action.id !== null && !known) return session;

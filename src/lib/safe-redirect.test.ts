@@ -19,20 +19,20 @@ describe("safeCallbackPath", () => {
   });
 
   it("refuse les redirections vers un autre site", () => {
-    expect(safeCallbackPath("//evil.example")).toBe("/dashboard");
-    expect(safeCallbackPath("/\\evil.example")).toBe("/dashboard");
-    expect(safeCallbackPath("javascript:alert(1)")).toBe("/dashboard");
+    expect(safeCallbackPath("//evil.example")).toBe("/");
+    expect(safeCallbackPath("/\\evil.example")).toBe("/");
+    expect(safeCallbackPath("javascript:alert(1)")).toBe("/");
   });
 
   it("renvoie la valeur de repli si la valeur est absente ou invalide", () => {
-    expect(safeCallbackPath(null)).toBe("/dashboard");
-    expect(safeCallbackPath(undefined)).toBe("/dashboard");
-    expect(safeCallbackPath(["/a", "/b"])).toBe("/dashboard");
-    expect(safeCallbackPath("a".repeat(600))).toBe("/dashboard");
+    expect(safeCallbackPath(null)).toBe("/");
+    expect(safeCallbackPath(undefined)).toBe("/");
+    expect(safeCallbackPath(["/a", "/b"])).toBe("/");
+    expect(safeCallbackPath("a".repeat(600))).toBe("/");
   });
 
   it("ne renvoie jamais vers les pages de connexion (boucle)", () => {
-    expect(safeCallbackPath("/login")).toBe("/dashboard");
-    expect(safeCallbackPath("/register?x=1")).toBe("/dashboard");
+    expect(safeCallbackPath("/login")).toBe("/");
+    expect(safeCallbackPath("/register?x=1")).toBe("/");
   });
 });

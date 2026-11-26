@@ -25,13 +25,13 @@ export async function GET(
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#0f172a",
-        color: "#ffffff",
+        background: "#afbdf1",
+        color: "#252440",
         fontSize: Math.round(size * (maskable ? 0.42 : 0.58)),
         borderRadius: maskable ? 0 : Math.round(size * 0.2),
       }}
     >
-      S
+      T
     </div>,
     {
       width: size,

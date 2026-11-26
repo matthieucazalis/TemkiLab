@@ -2,7 +2,7 @@ import type { DeepStrings } from "./types";
 
 const fr = {
   title: "Mon profil",
-  backToDashboard: "Retour au tableau de bord",
+  backToSimulator: "Retour au simulateur",
   infoTitle: "Informations",
   email: "Email",
   name: "Nom",
@@ -39,7 +39,7 @@ const fr = {
 
 const en: DeepStrings<typeof fr> = {
   title: "My profile",
-  backToDashboard: "Back to the dashboard",
+  backToSimulator: "Back to the simulator",
   infoTitle: "Information",
   email: "Email",
   name: "Name",
@@ -76,7 +76,7 @@ const en: DeepStrings<typeof fr> = {
 
 const de: DeepStrings<typeof fr> = {
   title: "Mein Profil",
-  backToDashboard: "Zurück zum Dashboard",
+  backToSimulator: "Zurück zum Simulator",
   infoTitle: "Angaben",
   email: "E-Mail",
   name: "Name",

@@ -4,14 +4,12 @@ export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = "fr";
 export const LOCALE_COOKIE = "locale";
 
-// Nom de chaque langue écrit dans sa propre langue (jamais traduit)
 export const LOCALE_NAMES: Record<Locale, string> = {
   fr: "Français",
   en: "English",
   de: "Deutsch",
 };
 
-// Code BCP 47 utilisé pour formater dates et nombres
 export const LOCALE_TAGS: Record<Locale, string> = {
   fr: "fr-FR",
   en: "en-GB",
@@ -40,8 +38,6 @@ export function isTheme(value: unknown): value is Theme {
   );
 }
 
-// Choisit la meilleure langue à partir de l'en-tête Accept-Language
-// (ex. « de-DE,de;q=0.9,en;q=0.8 »). Repli sur la langue par défaut.
 export function matchLocale(acceptLanguage: string | null | undefined): Locale {
   if (!acceptLanguage) return DEFAULT_LOCALE;
   const candidates = acceptLanguage

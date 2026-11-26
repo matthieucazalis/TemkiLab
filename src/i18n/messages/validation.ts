@@ -1,7 +1,5 @@
 import type { DeepStrings } from "./types";
 
-// Ces clés sont utilisées comme messages d'erreur par les schémas Zod
-// (voir lib/validators) puis traduites au moment d'afficher l'erreur.
 const fr = {
   min2: "2 caractères minimum",
   min8: "8 caractères minimum",

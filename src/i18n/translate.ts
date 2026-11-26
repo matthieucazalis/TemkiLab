@@ -21,7 +21,6 @@ function lookup(tree: unknown, key: string): string | undefined {
   return typeof node === "string" ? node : undefined;
 }
 
-// Pluriel : « une tâche|{count} tâches ». En français, 0 et 1 sont au singulier.
 function pickPlural(message: string, count: number, locale: Locale) {
   if (!message.includes("|")) return message;
   const [singular, plural] = message.split("|");

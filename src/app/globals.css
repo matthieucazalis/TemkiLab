@@ -46,75 +46,102 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --color-coat-a: var(--coat-a);
+  --color-coat-b: var(--coat-b);
+  --color-stage: var(--stage);
+  --color-stage-2: var(--stage-2);
+  --color-stage-fg: var(--stage-fg);
+  --color-stage-muted: var(--stage-muted);
+  --color-stage-line: var(--stage-line);
 }
 
+/* Palette « fleurs » : chicorée (#afbdf1), glycine, pivoine, primevère.
+   Jamais de blanc ni de noir purs : papier lavande et encre prune. */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --background: #f5f3fb;
+  --foreground: #2a2940;
+  --card: #faf9fe;
+  --card-foreground: #2a2940;
+  --popover: #faf9fe;
+  --popover-foreground: #2a2940;
+  --primary: #afbdf1;
+  --primary-foreground: #252440;
+  --secondary: #e9e6f6;
+  --secondary-foreground: #2a2940;
+  --muted: #ebe8f6;
+  --muted-foreground: #66647f;
+  --accent: #e4e0f4;
+  --accent-foreground: #2a2940;
+  --destructive: #c0475f;
+  --border: #dedaee;
+  --input: #d6d2e8;
+  --ring: #8396e3;
+  --chart-1: #afbdf1;
+  --chart-2: #cdb4ea;
+  --chart-3: #f0b7cf;
+  --chart-4: #f2dba2;
+  --chart-5: #b9d6c0;
+  --radius: 1rem;
+  --sidebar: #ece9f8;
+  --sidebar-foreground: #2a2940;
+  --sidebar-primary: #afbdf1;
+  --sidebar-primary-foreground: #252440;
+  --sidebar-accent: #dcd8f1;
+  --sidebar-accent-foreground: #2a2940;
+  --sidebar-border: #d9d5ee;
+  --sidebar-ring: #8396e3;
+
+  /* Reflets : chicorée → pivoine (cadre actif, focale, point de mise au point) */
+  --coat-a: #8396e3;
+  --coat-b: #e59abc;
+  --coat: linear-gradient(135deg, var(--coat-a), var(--coat-b));
+
+  /* La scène suit aussi le thème */
+  --stage: #e8e5f5;
+  --stage-glow: #f7f5fd;
+  --stage-2: #f6f4fc;
+  --stage-fg: #2a2940;
+  --stage-muted: #66647f;
+  --stage-line: rgba(42, 41, 64, 0.14);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: #1e1d2d;
+  --foreground: #eceaf7;
+  --card: #282738;
+  --card-foreground: #eceaf7;
+  --popover: #282738;
+  --popover-foreground: #eceaf7;
+  --primary: #afbdf1;
+  --primary-foreground: #1e1d2d;
+  --secondary: #2f2e42;
+  --secondary-foreground: #eceaf7;
+  --muted: #2b2a3d;
+  --muted-foreground: #a9a7c3;
+  --accent: #34334a;
+  --accent-foreground: #eceaf7;
+  --destructive: #ef8a9f;
+  --border: rgba(236, 234, 247, 0.12);
+  --input: rgba(236, 234, 247, 0.16);
+  --ring: #afbdf1;
+  --sidebar: #252436;
+  --sidebar-foreground: #eceaf7;
+  --sidebar-primary: #afbdf1;
+  --sidebar-primary-foreground: #1e1d2d;
+  --sidebar-accent: #34334a;
+  --sidebar-accent-foreground: #eceaf7;
+  --sidebar-border: rgba(236, 234, 247, 0.1);
+  --sidebar-ring: #afbdf1;
+
+  --coat-a: #afbdf1;
+  --coat-b: #f2b3cf;
+
+  --stage: #1a1a2a;
+  --stage-glow: #2a2a42;
+  --stage-2: #262637;
+  --stage-fg: #eceaf7;
+  --stage-muted: #a9a7c3;
+  --stage-line: rgba(236, 234, 247, 0.14);
 }
 
 @layer base {
@@ -127,6 +154,124 @@
   html {
     @apply font-sans;
   }
+}
+
+/* ---------- Éléments propres à TemkiLab ---------- */
+
+/* Bordure dégradée « revêtement de lentille » (élément actif) */
+.coat-ring {
+  position: relative;
+}
+.coat-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: var(--coat);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Fond du viseur : mat, avec un léger point de fuite lumineux */
+.stage-bg {
+  background:
+    radial-gradient(120% 80% at 50% 38%, var(--stage-glow) 0%, transparent 62%),
+    var(--stage);
+}
+
+/* Perforations d'une pellicule 35 mm (bandeau de scènes, planche contact) */
+.film-holes {
+  background-image: radial-gradient(
+    circle at 6px 50%,
+    var(--stage) 0 2.5px,
+    transparent 3px
+  );
+  background-size: 14px 100%;
+  background-repeat: repeat-x;
+}
+
+/* Règle de focale : graduations fines + grandes tous les 5 crans */
+.focal-ticks {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      var(--stage-muted) 0 1px,
+      transparent 1px 10px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--stage-fg) 0 1px,
+      transparent 1px 50px
+    );
+  background-size:
+    100% 8px,
+    100% 16px;
+  background-position:
+    0 100%,
+    0 100%;
+  background-repeat: no-repeat;
+  opacity: 0.55;
+}
+
+/* Curseur de la règle : poignée fine, vraie « bague » */
+.dial {
+  appearance: none;
+  background: transparent;
+  height: 2.5rem;
+  cursor: ew-resize;
+}
+.dial::-webkit-slider-runnable-track {
+  background: transparent;
+  height: 2.5rem;
+}
+.dial::-moz-range-track {
+  background: transparent;
+  height: 2.5rem;
+}
+.dial::-webkit-slider-thumb {
+  appearance: none;
+  width: 3px;
+  height: 2.5rem;
+  border-radius: 2px;
+  background: var(--coat);
+  box-shadow: 0 0 14px 1px color-mix(in oklch, var(--coat-a) 55%, transparent);
+}
+.dial::-moz-range-thumb {
+  width: 3px;
+  height: 2.5rem;
+  border: 0;
+  border-radius: 2px;
+  background: var(--coat-a);
+  box-shadow: 0 0 14px 1px color-mix(in oklch, var(--coat-a) 55%, transparent);
+}
+.dial:focus-visible {
+  outline: 2px solid var(--coat-b);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.dial:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* Une seule animation non sollicitée : la mise au point au chargement */
+@keyframes focus-pull {
+  from {
+    filter: blur(10px);
+    opacity: 0.4;
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+.focus-pull {
+  animation: focus-pull 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 /* Accessibilité : respecte le réglage « réduire les animations » de l'appareil */

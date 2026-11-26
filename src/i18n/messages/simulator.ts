@@ -8,7 +8,7 @@ const fr = {
     "Le catalogue de boîtiers et d'objectifs est vide. Lance « npm run db:seed » pour le remplir.",
   preview: {
     label: "Aperçu du cadrage : zoom ×{zoom}, ratio {ratio}",
-    note: "Rendu de test : des lignes de repère, sans photo pour l'instant.",
+    note: "Scène illustrée : le flou dépend de la focale, de l'ouverture et de la distance au point net.",
   },
   mode: {
     title: "Mode",
@@ -60,6 +60,37 @@ const fr = {
     belowReference:
       "Cette focale est plus large que la scène de référence : le rendu reste à sa largeur maximale.",
   },
+  scene: {
+    label: "Scène",
+    paysage: "Paysage",
+    rue: "Rue",
+    portrait: "Portrait",
+  },
+  focus: {
+    title: "Mise au point",
+    hint: "Clique sur l'image pour choisir le point net.",
+    near: "Premier plan",
+    subject: "Sujet",
+    far: "Arrière-plan",
+  },
+  stage: {
+    grid: "Règle des tiers",
+    gridOn: "Masquer la grille",
+    gridOff: "Afficher la grille",
+    exposure: "Exposition",
+    scenes: "Scènes",
+    sceneSoon: "Bientôt",
+    scenePackshot: "Packshot",
+    sceneSport: "Sport",
+    sceneStickman: "Stickman",
+    apertureRing: "Bague d'ouverture",
+    focalRing: "Bague de focale",
+  },
+  panel: {
+    gear: "Matériel",
+    framing: "Cadrage",
+    legal: "Informations légales",
+  },
   sensor: {
     FULL_FRAME: "Plein format",
     APS_C: "APS-C",
@@ -76,7 +107,7 @@ const en: DeepStrings<typeof fr> = {
     "The camera and lens catalogue is empty. Run “npm run db:seed” to fill it.",
   preview: {
     label: "Framing preview: zoom ×{zoom}, ratio {ratio}",
-    note: "Test render: guide lines only, no photo yet.",
+    note: "Illustrated scene: the blur depends on focal length, aperture and distance from the focus point.",
   },
   mode: {
     title: "Mode",
@@ -127,6 +158,37 @@ const en: DeepStrings<typeof fr> = {
     belowReference:
       "This focal length is wider than the reference scene: the render stays at its widest.",
   },
+  scene: {
+    label: "Scene",
+    paysage: "Landscape",
+    rue: "Street",
+    portrait: "Portrait",
+  },
+  focus: {
+    title: "Focus",
+    hint: "Click the image to choose the sharp point.",
+    near: "Foreground",
+    subject: "Subject",
+    far: "Background",
+  },
+  stage: {
+    grid: "Rule of thirds",
+    gridOn: "Hide grid",
+    gridOff: "Show grid",
+    exposure: "Exposure",
+    scenes: "Scenes",
+    sceneSoon: "Soon",
+    scenePackshot: "Packshot",
+    sceneSport: "Sport",
+    sceneStickman: "Stickman",
+    apertureRing: "Aperture ring",
+    focalRing: "Focal length ring",
+  },
+  panel: {
+    gear: "Gear",
+    framing: "Framing",
+    legal: "Legal information",
+  },
   sensor: {
     FULL_FRAME: "Full frame",
     APS_C: "APS-C",
@@ -143,7 +205,7 @@ const de: DeepStrings<typeof fr> = {
     "Der Katalog mit Kameras und Objektiven ist leer. Führe „npm run db:seed“ aus, um ihn zu füllen.",
   preview: {
     label: "Vorschau des Bildausschnitts: Zoom ×{zoom}, Verhältnis {ratio}",
-    note: "Testdarstellung: nur Hilfslinien, noch kein Foto.",
+    note: "Illustrierte Szene: Die Unschärfe hängt von Brennweite, Blende und Abstand zum Fokuspunkt ab.",
   },
   mode: {
     title: "Modus",
@@ -194,6 +256,37 @@ const de: DeepStrings<typeof fr> = {
       "Dieses Objektiv deckt den Sensor dieser Kamera nicht vollständig ab: Die Bildecken wären schwarz.",
     belowReference:
       "Diese Brennweite ist weitwinkliger als die Referenzszene: Die Darstellung bleibt bei ihrer größten Weite.",
+  },
+  scene: {
+    label: "Szene",
+    paysage: "Landschaft",
+    rue: "Straße",
+    portrait: "Porträt",
+  },
+  focus: {
+    title: "Fokus",
+    hint: "Klicke auf das Bild, um den scharfen Punkt zu wählen.",
+    near: "Vordergrund",
+    subject: "Motiv",
+    far: "Hintergrund",
+  },
+  stage: {
+    grid: "Drittelregel",
+    gridOn: "Raster ausblenden",
+    gridOff: "Raster anzeigen",
+    exposure: "Belichtung",
+    scenes: "Szenen",
+    sceneSoon: "Bald",
+    scenePackshot: "Packshot",
+    sceneSport: "Sport",
+    sceneStickman: "Strichmännchen",
+    apertureRing: "Blendenring",
+    focalRing: "Brennweitenring",
+  },
+  panel: {
+    gear: "Ausrüstung",
+    framing: "Bildausschnitt",
+    legal: "Rechtliche Hinweise",
   },
   sensor: {
     FULL_FRAME: "Kleinbild",

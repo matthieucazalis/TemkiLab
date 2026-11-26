@@ -28,7 +28,7 @@ export async function login(page: Page, email: string, password = PASSWORD) {
 }
 
 // Comme login(), mais attend d'être réellement connecté (redirection vers
-// /dashboard). À utiliser quand la suite du test a besoin de la session : sans
+// /). À utiliser quand la suite du test a besoin de la session : sans
 // cela, un goto() immédiat annule la connexion en cours.
 export async function loginAndWait(
   page: Page,
@@ -36,7 +36,7 @@ export async function loginAndWait(
   password = PASSWORD,
 ) {
   await login(page, email, password);
-  await page.waitForURL(/\/dashboard/);
+  await page.waitForURL((url) => url.pathname === "/");
 }
 
 export async function signUpAndLogin(page: Page, name = "Testeur") {

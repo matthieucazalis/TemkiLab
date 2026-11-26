@@ -5,6 +5,7 @@ import { useEffect, useState, useTransition } from "react";
 import { updatePreferencesAction } from "@/i18n/actions";
 import { useLocale, useT, useTheme } from "@/i18n/client";
 import { LOCALES, LOCALE_NAMES, type Locale, type Theme } from "@/i18n/config";
+import { AppIcon } from "@/components/icons";
 import { applyTheme } from "@/components/theme-sync";
 
 // Raccourcis langue et thème, disponibles partout (y compris avant connexion)
@@ -45,7 +46,7 @@ export function PreferencesBar() {
         value={locale}
         disabled={pending}
         onChange={(e) => save({ locale: e.target.value as Locale })}
-        className="h-8 rounded-md border bg-transparent px-2 text-sm"
+        className="h-9 rounded-full border bg-background/60 px-3 text-sm"
       >
         {LOCALES.map((l) => (
           <option key={l} value={l}>
@@ -64,9 +65,9 @@ export function PreferencesBar() {
         title={t(
           nextTheme === "dark" ? "settings.themeDark" : "settings.themeLight",
         )}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-md border text-base"
+        className="inline-flex h-9 w-9 items-center justify-center rounded-full border bg-background/60 text-foreground"
       >
-        <span aria-hidden="true">{isDark ? "☀" : "☾"}</span>
+        <AppIcon name={isDark ? "sun" : "moon"} size={18} />
       </button>
     </div>
   );

@@ -6,11 +6,7 @@ import { Label } from "@/components/ui/label";
 import { LOCALE_TAGS } from "@/i18n/config";
 import { useLocale, useT } from "@/i18n/client";
 import { availableRatios } from "@/lib/optics/ratios";
-import {
-  apertureFloor,
-  availableApertures,
-  focalRange,
-} from "@/lib/simulator/controls";
+import type { Point, Scene } from "@/lib/simulator/scenes";
 import { ratioContext } from "@/lib/simulator/reducer";
 import type {
   CatalogLens,
@@ -28,6 +24,7 @@ type Props = {
   lenses: readonly CatalogLens[];
   profile: CatalogProfile | null;
   lens: CatalogLens | null;
+  scene: Scene;
   dispatch: (action: SessionAction) => void;
 };
 
@@ -48,6 +45,7 @@ export function ControlPanel({
   lenses,
   profile,
   lens,
+  scene,
   dispatch,
 }: Props) {
   const t = useT();
@@ -56,10 +54,9 @@ export function ControlPanel({
     value.toLocaleString(tag, { maximumFractionDigits: maxDigits });
 
   const isProfile = sim.mode === "PROFILE";
-  const range = focalRange(sim.mode, lens);
-  const floor = apertureFloor(sim.mode, lens);
-  const apertures = availableApertures(floor, sim.aperture);
   const ratios = availableRatios(ratioContext(sim.mode, { profile, lens }));
+  const currentFocus = sim.focusPoint ?? scene.focusTargets.subject;
+  const sameFocus = (a: Point, b: Point) => a.x === b.x && a.y === b.y;
   const lensGroups = useMemo(() => groupByBrand(lenses), [lenses]);
 
   function lensLabel(item: CatalogLens) {
@@ -71,17 +68,17 @@ export function ControlPanel({
   }
 
   return (
-    <div className="space-y-6 rounded-lg border p-5">
+    <div className="space-y-7">
       <fieldset className="space-y-2">
-        <legend className="mb-2 text-sm font-medium">
-          {t("simulator.mode.title")}
+        <legend className="mb-2 text-sm font-semibold">
+          {t("simulator.panel.gear")}
         </legend>
-        <div className="flex gap-2">
+        <div className="grid grid-cols-2 gap-1 rounded-lg bg-muted p-1">
           {(["GENERAL", "PROFILE"] as const).map((mode) => (
             <Button
               key={mode}
               type="button"
-              variant={sim.mode === mode ? "default" : "outline"}
+              variant={sim.mode === mode ? "default" : "ghost"}
               aria-pressed={sim.mode === mode}
               onClick={() => dispatch({ type: "setMode", mode })}
             >
@@ -168,65 +165,9 @@ export function ControlPanel({
         </>
       )}
 
-      <div className="space-y-1.5">
-        <div className="flex items-baseline justify-between">
-          <Label htmlFor="sim-focal">{t("simulator.focal.label")}</Label>
-          <output
-            htmlFor="sim-focal"
-            className="text-sm font-medium tabular-nums"
-          >
-            {number(sim.focal, 1)} mm
-          </output>
-        </div>
-        <input
-          id="sim-focal"
-          type="range"
-          min={range.min}
-          max={range.max}
-          step={1}
-          value={sim.focal}
-          disabled={range.locked}
-          onChange={(event) =>
-            dispatch({ type: "setFocal", focal: event.target.valueAsNumber })
-          }
-          className="w-full accent-primary"
-        />
-        {range.locked && (
-          <p className="text-xs text-muted-foreground">
-            {t("simulator.focal.locked")}
-          </p>
-        )}
-      </div>
-
-      <div className="space-y-1.5">
-        <Label htmlFor="sim-aperture">{t("simulator.aperture.label")}</Label>
-        <select
-          id="sim-aperture"
-          className={SELECT_CLASS}
-          value={String(sim.aperture)}
-          onChange={(event) =>
-            dispatch({
-              type: "setAperture",
-              aperture: Number(event.target.value),
-            })
-          }
-        >
-          {apertures.map((value) => (
-            <option key={value} value={String(value)}>
-              f/{number(value)}
-            </option>
-          ))}
-        </select>
-        {floor !== null && (
-          <p className="text-xs text-muted-foreground">
-            {t("simulator.aperture.limit", { value: number(floor) })}
-          </p>
-        )}
-      </div>
-
       <fieldset className="space-y-3">
-        <legend className="mb-2 text-sm font-medium">
-          {t("simulator.ratio.title")}
+        <legend className="mb-2 text-sm font-semibold">
+          {t("simulator.panel.framing")}
         </legend>
 
         {ratios.native.length > 0 && (
@@ -270,6 +211,38 @@ export function ControlPanel({
       >
         {t("common.reset")}
       </Button>
+
+      <fieldset className="space-y-2">
+        <legend className="mb-2 text-sm font-semibold">
+          {t("simulator.focus.title")}
+        </legend>
+        <div className="flex flex-wrap gap-2">
+          {(["near", "subject", "far"] as const).map((key) => (
+            <Button
+              key={key}
+              type="button"
+              size="sm"
+              variant={
+                sameFocus(currentFocus, scene.focusTargets[key])
+                  ? "default"
+                  : "outline"
+              }
+              aria-pressed={sameFocus(currentFocus, scene.focusTargets[key])}
+              onClick={() =>
+                dispatch({
+                  type: "setFocusPoint",
+                  point: scene.focusTargets[key],
+                })
+              }
+            >
+              {t(`simulator.focus.${key}`)}
+            </Button>
+          ))}
+        </div>
+        <p className="text-xs text-muted-foreground">
+          {t("simulator.focus.hint")}
+        </p>
+      </fieldset>
     </div>
   );
 }

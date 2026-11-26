@@ -22,8 +22,6 @@ const schema = z.object({
 
 export type PreferencesInput = z.infer<typeof schema>;
 
-// Enregistre les préférences dans des cookies (effet immédiat, même sans
-// compte) et, si l'utilisateur est connecté, sur son compte (multi-appareils).
 export async function updatePreferencesAction(
   input: PreferencesInput,
 ): Promise<{ ok: boolean }> {

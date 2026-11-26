@@ -21,8 +21,6 @@ export type Preferences = {
   haptics: boolean;
 };
 
-// Préférences enregistrées sur le compte (utilisées quand le cookie est absent :
-// nouvel appareil, cookies effacés…)
 const accountPreferences = cache(async () => {
   const session = await auth();
   if (!session?.user?.id) return null;
@@ -32,7 +30,6 @@ const accountPreferences = cache(async () => {
   });
 });
 
-// Ordre de priorité : cookie → compte → langue du navigateur → français.
 export const getPreferences = cache(async (): Promise<Preferences> => {
   const jar = await cookies();
   const cookieLocale = jar.get(LOCALE_COOKIE)?.value;

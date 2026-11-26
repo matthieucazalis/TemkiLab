@@ -19,7 +19,7 @@ export const authConfig = {
       const isLoggedIn = !!auth?.user;
       const path = nextUrl.pathname;
 
-      // page vitrine : accessible à tous (les boutons s'adaptent à la session)
+      // accueil = simulateur : accessible à tous (la connexion sert aux setups)
       if (path === "/") return true;
 
       // pages accessibles à tous (ex. lien d'invitation)
@@ -28,9 +28,7 @@ export const authConfig = {
 
       // pages de connexion : inutiles si on est déjà connecté
       if (AUTH_PAGES.some((p) => path === p || path.startsWith(`${p}/`))) {
-        return isLoggedIn
-          ? Response.redirect(new URL("/dashboard", nextUrl))
-          : true;
+        return isLoggedIn ? Response.redirect(new URL("/", nextUrl)) : true;
       }
 
       // tout le reste exige une session

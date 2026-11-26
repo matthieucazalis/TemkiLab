@@ -8,7 +8,7 @@ test.describe("PWA", () => {
     const manifest = await res.json();
     expect(manifest.name).toBe("TemkiLab");
     expect(manifest.display).toBe("standalone");
-    expect(manifest.start_url).toBe("/dashboard");
+    expect(manifest.start_url).toBe("/");
 
     const sizes = manifest.icons.map((i: { sizes: string }) => i.sizes);
     expect(sizes).toContain("192x192");

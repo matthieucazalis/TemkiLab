@@ -6,7 +6,6 @@ import { createTranslator, translate } from "./translate";
 import { firstIssueMessage } from "@/lib/validators/messages";
 import { registerSchema } from "@/lib/validators/auth";
 
-// Aplatit un dictionnaire en { "domaine.cle": "texte" }
 function flatten(tree: object, prefix = ""): Record<string, string> {
   return Object.entries(tree).reduce<Record<string, string>>(
     (acc, [key, value]) => {

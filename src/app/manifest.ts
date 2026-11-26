@@ -7,11 +7,11 @@ export default function manifest(): MetadataRoute.Manifest {
     description:
       "Base web et mobile prête à l'emploi : comptes, profil, PWA et API.",
     id: "/",
-    start_url: "/dashboard",
+    start_url: "/",
     scope: "/",
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#0f172a",
+    background_color: "#f5f3fb",
+    theme_color: "#afbdf1",
     lang: "fr",
     icons: [
       {

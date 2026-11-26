@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import Link from "next/link";
+import Script from "next/script";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { HapticsListener } from "@/components/haptics";
@@ -31,8 +31,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f3fb" },
+    { media: "(prefers-color-scheme: dark)", color: "#1e1d2d" },
   ],
 };
 
@@ -51,12 +51,12 @@ export default async function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable}${theme === "dark" ? " dark" : ""}`}
       style={theme === "dark" ? { colorScheme: "dark" } : undefined}
     >
-      <head>
-        {theme === "system" && (
-          <script dangerouslySetInnerHTML={{ __html: SYSTEM_THEME_SCRIPT }} />
-        )}
-      </head>
       <body className="antialiased">
+        {theme === "system" && (
+          <Script id="system-theme" strategy="beforeInteractive">
+            {SYSTEM_THEME_SCRIPT}
+          </Script>
+        )}
         <I18nProvider locale={locale} haptics={haptics} theme={theme}>
           <a
             href="#main-content"
@@ -68,14 +68,6 @@ export default async function RootLayout({
           <ThemeSync />
           <HapticsListener />
           {children}
-          <footer className="mx-auto flex max-w-7xl flex-wrap justify-center gap-4 px-4 py-6 text-xs text-muted-foreground">
-            <Link href="/legal/privacy" className="underline">
-              {t("legal.footerPrivacy")}
-            </Link>
-            <Link href="/legal/notice" className="underline">
-              {t("legal.footerNotice")}
-            </Link>
-          </footer>
         </I18nProvider>
       </body>
     </html>

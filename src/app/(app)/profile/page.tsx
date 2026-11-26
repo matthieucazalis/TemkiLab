@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { PageShell } from "@/components/shell/page-shell";
+import { Button } from "@/components/ui/button";
 import { getT } from "@/i18n/server";
+import { signOut } from "@/lib/auth";
 import { requireUser } from "@/lib/session";
 import { getUserById } from "@/services/user.service";
 import { ProfileForms } from "./profile-forms";
@@ -16,14 +19,25 @@ export default async function ProfilePage() {
   if (!user) redirect("/login");
 
   return (
-    <main id="main-content" className="mx-auto max-w-md space-y-6 p-4 sm:p-8">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">{t("profile.title")}</h1>
-        <Link href="/dashboard" className="text-sm underline">
-          {t("profile.backToDashboard")}
+    <PageShell
+      title={t("profile.title")}
+      aside={
+        <Link href="/" className="text-sm underline">
+          {t("profile.backToSimulator")}
         </Link>
-      </div>
+      }
+    >
       <ProfileForms name={user.name} email={user.email} avatar={user.avatar} />
-    </main>
+      <form
+        action={async () => {
+          "use server";
+          await signOut({ redirectTo: "/login" });
+        }}
+      >
+        <Button type="submit" variant="outline">
+          {t("auth.logout")}
+        </Button>
+      </form>
+    </PageShell>
   );
 }

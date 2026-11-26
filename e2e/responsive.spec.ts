@@ -24,7 +24,7 @@ test.describe("responsive (375 px)", () => {
 
   test("les pages connectées tiennent dans l'écran", async ({ page }) => {
     await signUpAndLogin(page);
-    for (const path of ["/dashboard", "/profile", "/settings"])
+    for (const path of ["/", "/setups", "/profile", "/settings"])
       await expectNoHorizontalScroll(page, path);
   });
 });

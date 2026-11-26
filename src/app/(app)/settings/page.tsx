@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getPreferences, getT } from "@/i18n/server";
 import { requireUser } from "@/lib/session";
+import { PageShell } from "@/components/shell/page-shell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PreferencesForm } from "./preferences-form";
 
@@ -14,12 +15,7 @@ export default async function SettingsPage() {
   const [t, prefs] = await Promise.all([getT(), getPreferences()]);
 
   return (
-    <main id="main-content" className="mx-auto max-w-2xl space-y-6 p-4 sm:p-8">
-      <div className="space-y-1">
-        <h1 className="text-2xl font-bold">{t("settings.title")}</h1>
-        <p className="text-sm text-muted-foreground">{t("settings.intro")}</p>
-      </div>
-
+    <PageShell title={t("settings.title")} intro={t("settings.intro")}>
       <PreferencesForm
         locale={prefs.locale}
         theme={prefs.theme}
@@ -37,6 +33,6 @@ export default async function SettingsPage() {
           </Link>
         </CardContent>
       </Card>
-    </main>
+    </PageShell>
   );
 }

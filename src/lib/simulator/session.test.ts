@@ -99,7 +99,10 @@ describe("sélection du boîtier", () => {
   });
 
   it("mode Général : le choix est mémorisé sans toucher aux réglages", () => {
-    const result = run(INITIAL_SESSION, { type: "selectProfile", id: "reflex" });
+    const result = run(INITIAL_SESSION, {
+      type: "selectProfile",
+      id: "reflex",
+    });
     expect(result.profileId).toBe("reflex");
     expect(result.sim).toEqual(INITIAL_SESSION.sim);
   });
@@ -115,7 +118,10 @@ describe("sélection du boîtier", () => {
 });
 
 describe("sélection de l'objectif", () => {
-  const inProfileMode = run(INITIAL_SESSION, { type: "setMode", mode: "PROFILE" });
+  const inProfileMode = run(INITIAL_SESSION, {
+    type: "setMode",
+    mode: "PROFILE",
+  });
 
   it("ignore un identifiant inconnu", () => {
     expect(run(inProfileMode, { type: "selectLens", id: "?" })).toBe(
@@ -162,14 +168,34 @@ describe("autres actions", () => {
   });
 
   it("n'acceptent que les ratios débloqués par le boîtier", () => {
-    expect(run(ready, { type: "setRatio", value: "16:9" }).sim.ratio.value).toBe(
-      "16:9",
-    );
+    expect(
+      run(ready, { type: "setRatio", value: "16:9" }).sim.ratio.value,
+    ).toBe("16:9");
     expect(run(ready, { type: "setRatio", value: "5:7" })).toBe(ready);
   });
 
   it("une action sans effet renvoie la même session", () => {
     expect(run(ready, { type: "setFocal", focal: Number.NaN })).toBe(ready);
+  });
+});
+
+describe("changement de scène", () => {
+  const focused = run(
+    INITIAL_SESSION,
+    { type: "setScene", sceneId: "rue" },
+    { type: "setFocusPoint", point: { x: 0.1, y: 0.2 } },
+  );
+
+  it("une autre scène remet la mise au point sur le sujet", () => {
+    expect(focused.sim.focusPoint).toEqual({ x: 0.1, y: 0.2 });
+    const result = run(focused, { type: "setScene", sceneId: "portrait" });
+    expect(result.sim.sceneId).toBe("portrait");
+    expect(result.sim.focusPoint).toBeUndefined();
+  });
+
+  it("la même scène garde la mise au point choisie", () => {
+    const result = run(focused, { type: "setScene", sceneId: "rue" });
+    expect(result.sim.focusPoint).toEqual({ x: 0.1, y: 0.2 });
   });
 });
 

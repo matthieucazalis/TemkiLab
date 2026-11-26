@@ -1,7 +1,5 @@
 import type { DeepStrings } from "./types";
 
-// Textes à relire et compléter par l'auteur du projet (les passages entre
-// crochets sont des champs à renseigner avant la mise en ligne).
 const fr = {
   footerPrivacy: "Confidentialité",
   footerNotice: "Mentions légales",

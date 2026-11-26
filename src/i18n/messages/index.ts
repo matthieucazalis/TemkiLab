@@ -9,6 +9,7 @@ import { legal } from "./legal";
 import { nav } from "./nav";
 import { profile } from "./profile";
 import { settings } from "./settings";
+import { setups } from "./setups";
 import { simulator } from "./simulator";
 import { validation } from "./validation";
 
@@ -20,6 +21,7 @@ const domains = {
   auth,
   nav,
   settings,
+  setups,
   profile,
   dashboard,
   simulator,

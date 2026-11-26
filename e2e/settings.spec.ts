@@ -22,9 +22,9 @@ test.describe("préférences : langue et thème", () => {
     await expect(page.locator("html")).toHaveAttribute("lang", "de");
 
     // les autres pages suivent
-    await page.goto("/dashboard");
+    await page.goto("/profile");
     await expect(
-      page.getByRole("heading", { name: "Dashboard" }),
+      page.getByRole("heading", { name: "Mein Profil" }),
     ).toBeVisible();
   });
 

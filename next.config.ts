@@ -18,6 +18,13 @@ const csp = [
 const nextConfig: NextConfig = {
   output: process.env.NEXT_OUTPUT === "standalone" ? "standalone" : undefined,
   poweredByHeader: false,
+  async redirects() {
+    // anciennes adresses : le simulateur est maintenant l'accueil
+    return [
+      { source: "/dashboard", destination: "/", permanent: false },
+      { source: "/simulator", destination: "/", permanent: false },
+    ];
+  },
   async headers() {
     return [
       {

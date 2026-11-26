@@ -2,11 +2,14 @@ import type { DeepStrings } from "./types";
 
 const fr = {
   mainLabel: "Navigation principale",
-  settings: "Paramètres",
+  settings: "Réglages",
   profile: "Mon profil",
   home: "Accueil",
-  dashboard: "Tableau de bord",
   simulator: "Simulateur",
+  setups: "Mes setups",
+  signIn: "Se connecter",
+  signUp: "Créer un compte",
+  guest: "Invité",
 };
 
 const en: DeepStrings<typeof fr> = {
@@ -14,8 +17,11 @@ const en: DeepStrings<typeof fr> = {
   settings: "Settings",
   profile: "My profile",
   home: "Home",
-  dashboard: "Dashboard",
   simulator: "Simulator",
+  setups: "My setups",
+  signIn: "Sign in",
+  signUp: "Create an account",
+  guest: "Guest",
 };
 
 const de: DeepStrings<typeof fr> = {
@@ -23,8 +29,11 @@ const de: DeepStrings<typeof fr> = {
   settings: "Einstellungen",
   profile: "Mein Profil",
   home: "Startseite",
-  dashboard: "Dashboard",
   simulator: "Simulator",
+  setups: "Meine Setups",
+  signIn: "Anmelden",
+  signUp: "Konto erstellen",
+  guest: "Gast",
 };
 
 export const nav = { fr, en, de };

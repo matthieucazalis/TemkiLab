@@ -2,7 +2,7 @@
 // (ex. un lien d'invitation). Cette valeur vient de l'URL : c'est une entrée
 // utilisateur, donc on n'accepte qu'un chemin interne (protection contre la
 // redirection ouverte, OWASP A01).
-const FALLBACK = "/dashboard";
+const FALLBACK = "/";
 
 export function safeCallbackPath(
   value: FormDataEntryValue | string | string[] | null | undefined,

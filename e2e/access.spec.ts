@@ -5,7 +5,7 @@ test.describe("contrôle d'accès", () => {
   test("un visiteur non connecté est renvoyé vers la connexion", async ({
     page,
   }) => {
-    for (const path of ["/dashboard", "/profile", "/settings"]) {
+    for (const path of ["/setups", "/profile", "/settings"]) {
       await page.goto(path);
       await expect(page, path).toHaveURL(/\/login/);
     }
@@ -18,11 +18,11 @@ test.describe("contrôle d'accès", () => {
     }
   });
 
-  test("une fois connecté, /login renvoie vers le tableau de bord", async ({
+  test("une fois connecté, /login renvoie vers le simulateur", async ({
     page,
   }) => {
     await signUpAndLogin(page);
     await page.goto("/login");
-    await expect(page).toHaveURL(/\/dashboard/);
+    await expect(page).toHaveURL(/\/$/);
   });
 });

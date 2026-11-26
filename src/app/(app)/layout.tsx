@@ -7,8 +7,6 @@ import { signOut } from "@/lib/auth";
 import { requireUser } from "@/lib/session";
 import { getUserById } from "@/services/user.service";
 
-// Barre commune à toutes les pages connectées : navigation, raccourcis langue
-// et thème, profil, déconnexion. Ajoute tes liens de navigation dans le <nav>.
 export default async function AppLayout({
   children,
 }: {
@@ -31,6 +29,9 @@ export default async function AppLayout({
             </Link>
             <Link href="/dashboard" className="hover:underline">
               {t("nav.dashboard")}
+            </Link>
+            <Link href="/simulator" className="hover:underline">
+              {t("nav.simulator")}
             </Link>
             <Link href="/settings" className="hover:underline">
               {t("nav.settings")}

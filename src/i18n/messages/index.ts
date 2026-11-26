@@ -9,9 +9,9 @@ import { legal } from "./legal";
 import { nav } from "./nav";
 import { profile } from "./profile";
 import { settings } from "./settings";
+import { simulator } from "./simulator";
 import { validation } from "./validation";
 
-// Un domaine = un fichier contenant les trois langues côte à côte.
 const domains = {
   common,
   validation,
@@ -22,13 +22,13 @@ const domains = {
   settings,
   profile,
   dashboard,
+  simulator,
   landing,
   legal,
 };
 
 type Domains = typeof domains;
 
-// La forme de référence est celle du français.
 export type Messages = { [D in keyof Domains]: Domains[D]["fr"] };
 
 function pick(locale: Locale): Messages {

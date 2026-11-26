@@ -52,7 +52,7 @@ function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }
 
-function ratioContext(
+export function ratioContext(
   mode: SimulatorState["mode"],
   constraints: SimulatorConstraints,
 ): RatioContext {

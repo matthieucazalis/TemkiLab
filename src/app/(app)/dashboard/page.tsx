@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 import { getT } from "@/i18n/server";
 import { requireUser } from "@/lib/session";
 
@@ -6,7 +8,6 @@ export async function generateMetadata() {
   return { title: t("dashboard.title") };
 }
 
-// Page d'accueil de l'espace connecté : point de départ à remplacer.
 export default async function DashboardPage() {
   const [user, t] = await Promise.all([requireUser(), getT()]);
 
@@ -19,11 +20,14 @@ export default async function DashboardPage() {
         </h2>
         <p className="text-sm text-muted-foreground">{t("dashboard.intro")}</p>
       </section>
-      <section className="space-y-2 rounded-lg border bg-muted/40 p-5">
+      <section className="space-y-3 rounded-lg border bg-muted/40 p-5">
         <h2 className="font-semibold">{t("dashboard.nextTitle")}</h2>
         <p className="text-sm text-muted-foreground">
           {t("dashboard.nextText")}
         </p>
+        <Link href="/simulator" className={buttonVariants()}>
+          {t("dashboard.open")}
+        </Link>
       </section>
     </main>
   );

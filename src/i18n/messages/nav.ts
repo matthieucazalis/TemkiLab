@@ -6,6 +6,7 @@ const fr = {
   profile: "Mon profil",
   home: "Accueil",
   dashboard: "Tableau de bord",
+  simulator: "Simulateur",
 };
 
 const en: DeepStrings<typeof fr> = {
@@ -14,6 +15,7 @@ const en: DeepStrings<typeof fr> = {
   profile: "My profile",
   home: "Home",
   dashboard: "Dashboard",
+  simulator: "Simulator",
 };
 
 const de: DeepStrings<typeof fr> = {
@@ -22,6 +24,7 @@ const de: DeepStrings<typeof fr> = {
   profile: "Mein Profil",
   home: "Startseite",
   dashboard: "Dashboard",
+  simulator: "Simulator",
 };
 
 export const nav = { fr, en, de };

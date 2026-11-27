@@ -2,11 +2,20 @@
 // profondeur (0 = tout près, 1 = très loin). Chaque couche est une liste de
 // formes simples. Pas de fichier image : la profondeur est connue exactement,
 // c'est elle qui sert à calculer le flou.
+// La mire (« chart ») n'est pas ici : c'est une image plate, sans profondeur.
 // Fonctions pures, sans React.
 import { SCENES } from "./scene-data";
 
-export const SCENE_IDS = ["paysage", "rue", "portrait"] as const;
+// Dans l'ordre de la pellicule. Le Stickman viendra en dernier.
+export const SCENE_IDS = [
+  "chart",
+  "landscape",
+  "portrait",
+  "packshot",
+  "sport",
+] as const;
 export type SceneId = (typeof SCENE_IDS)[number];
+export type LayeredSceneId = Exclude<SceneId, "chart">;
 
 // Coordonnées normalisées dans la scène : x et y entre 0 et 1.
 export type Point = { x: number; y: number };
@@ -21,14 +30,7 @@ export type Shape =
       fill: string;
       opacity?: number;
     }
-  | {
-      kind: "circle";
-      cx: number;
-      cy: number;
-      r: number;
-      fill: string;
-      opacity?: number;
-    }
+  | { kind: "circle"; cx: number; cy: number; r: number; fill: string; opacity?: number }
   | {
       kind: "polygon";
       points: readonly (readonly [number, number])[];
@@ -46,7 +48,7 @@ export type Layer = {
 export type FocusTargets = { near: Point; subject: Point; far: Point };
 
 export type Scene = {
-  id: SceneId;
+  id: LayeredSceneId;
   width: number; // taille du dessin, en unités du SVG
   height: number;
   // Rangées du plus loin au plus proche : c'est l'ordre de dessin.
@@ -92,20 +94,23 @@ function containsPoint(shape: Shape, x: number, y: number): boolean {
 export function depthAt(scene: Scene, x: number, y: number): number {
   let nearest = 1;
   for (const layer of scene.layers) {
-    if (
-      layer.depth < nearest &&
-      layer.shapes.some((s) => containsPoint(s, x, y))
-    ) {
+    if (layer.depth < nearest && layer.shapes.some((s) => containsPoint(s, x, y))) {
       nearest = layer.depth;
     }
   }
   return nearest;
 }
 
-// Un identifiant inconnu (ancien preset, valeur de départ « default »)
-// retombe sur la première scène au lieu de planter.
-export function findScene(id: string): Scene {
-  return SCENES.find((scene) => scene.id === id) ?? SCENES[0];
+// La scène dessinée pour cet identifiant, ou null : la mire, et tout
+// identifiant inconnu (valeur de départ « default », ancien preset), se
+// comportent comme la mire au lieu de planter.
+export function findScene(id: string): Scene | null {
+  return SCENES.find((scene) => scene.id === id) ?? null;
+}
+
+// Identifiant à mettre en avant dans la pellicule.
+export function resolveSceneId(id: string): SceneId {
+  return SCENE_IDS.find((known) => known === id) ?? "chart";
 }
 
 export { SCENES };

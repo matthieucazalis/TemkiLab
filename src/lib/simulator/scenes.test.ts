@@ -1,21 +1,20 @@
 import { describe, expect, it } from "vitest";
-import { depthAt, findScene, SCENE_IDS, SCENES, type Scene } from "./scenes";
+import {
+  depthAt,
+  findScene,
+  resolveSceneId,
+  SCENE_IDS,
+  SCENES,
+  type Scene,
+} from "./scenes";
 
 const tiny: Scene = {
-  id: "paysage",
+  id: "landscape",
   width: 100,
   height: 100,
   layers: [
-    {
-      depth: 1,
-      shapes: [
-        { kind: "rect", x: 0, y: 0, width: 100, height: 100, fill: "#000" },
-      ],
-    },
-    {
-      depth: 0.5,
-      shapes: [{ kind: "circle", cx: 50, cy: 50, r: 20, fill: "#000" }],
-    },
+    { depth: 1, shapes: [{ kind: "rect", x: 0, y: 0, width: 100, height: 100, fill: "#000" }] },
+    { depth: 0.5, shapes: [{ kind: "circle", cx: 50, cy: 50, r: 20, fill: "#000" }] },
     {
       depth: 0.2,
       shapes: [
@@ -61,19 +60,31 @@ describe("depthAt", () => {
   });
 });
 
-describe("findScene", () => {
-  it("retrouve une scène par son identifiant", () => {
-    expect(findScene("rue").id).toBe("rue");
+describe("findScene et resolveSceneId", () => {
+  it("retrouve une scène dessinée par son identifiant", () => {
+    expect(findScene("sport")?.id).toBe("sport");
   });
 
-  it("identifiant inconnu : première scène", () => {
-    expect(findScene("default")).toBe(SCENES[0]);
+  it("la mire n'a pas de scène dessinée", () => {
+    expect(findScene("chart")).toBeNull();
+  });
+
+  it("valeur de départ ou identifiant inconnu : comme la mire", () => {
+    expect(findScene("default")).toBeNull();
+    expect(resolveSceneId("default")).toBe("chart");
+    expect(resolveSceneId("n-importe-quoi")).toBe("chart");
+  });
+
+  it("un identifiant connu est conservé", () => {
+    for (const id of SCENE_IDS) expect(resolveSceneId(id)).toBe(id);
   });
 });
 
 describe("données des scènes", () => {
-  it("il y a une scène pour chaque identifiant déclaré, sans doublon", () => {
-    expect(SCENES.map((s) => s.id).sort()).toEqual([...SCENE_IDS].sort());
+  it("une scène dessinée pour chaque identifiant, sauf la mire", () => {
+    expect(SCENES.map((s) => s.id).sort()).toEqual(
+      SCENE_IDS.filter((id) => id !== "chart").sort(),
+    );
   });
 
   for (const scene of SCENES) {

@@ -14,14 +14,8 @@ export function visibleRegion(
   aspect: number,
   zoom: number,
 ): Region {
-  if (
-    ![sceneWidth, sceneHeight, aspect, zoom].every(
-      (v) => Number.isFinite(v) && v > 0,
-    )
-  ) {
-    throw new RangeError(
-      "visibleRegion attend des nombres strictement positifs",
-    );
+  if (![sceneWidth, sceneHeight, aspect, zoom].every((v) => Number.isFinite(v) && v > 0)) {
+    throw new RangeError("visibleRegion attend des nombres strictement positifs");
   }
   let w: number;
   let h: number;
@@ -62,4 +56,30 @@ export function layerBlurStd(input: {
 export function focusDepthOf(scene: Scene, focusPoint?: Point): number {
   const point = focusPoint ?? scene.focusTargets.subject;
   return depthAt(scene, point.x * scene.width, point.y * scene.height);
+}
+
+// Rend un point de la scène (coordonnées 0..1) en coordonnées du cadre
+// (0..1 aussi), vu à travers la zone visible. Hors du cadre : null.
+export function sceneToFrame(
+  scene: Pick<Scene, "width" | "height">,
+  region: Region,
+  point: Point,
+): Point | null {
+  const x = (point.x * scene.width - region.x) / region.w;
+  const y = (point.y * scene.height - region.y) / region.h;
+  if (x < 0 || x > 1 || y < 0 || y > 1) return null;
+  return { x, y };
+}
+
+// Le chemin inverse : un point du cadre (0..1) devient un point de la scène
+// (0..1). C'est ce qu'un clic sur l'image donne comme point de mise au point.
+export function frameToScene(
+  scene: Pick<Scene, "width" | "height">,
+  region: Region,
+  point: Point,
+): Point {
+  return {
+    x: (region.x + point.x * region.w) / scene.width,
+    y: (region.y + point.y * region.h) / scene.height,
+  };
 }

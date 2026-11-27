@@ -23,6 +23,8 @@ export async function deleteAccount(userId: string, password: string) {
   await prisma.$transaction(async (tx) => {
     await tx.passwordResetToken.deleteMany({ where: { userId } });
     await tx.apiToken.deleteMany({ where: { userId } });
+    // La ligne User reste (anonymisée) : ses setups doivent donc être effacés.
+    await tx.simulationPreset.deleteMany({ where: { userId } });
 
     await tx.user.update({
       where: { id: userId },
@@ -58,9 +60,23 @@ export async function exportUserData(userId: string) {
     },
   });
 
+  const presets = await prisma.simulationPreset.findMany({
+    where: { userId },
+    orderBy: { createdAt: "asc" },
+    select: {
+      name: true,
+      isFavorite: true,
+      state: true,
+      createdAt: true,
+      lens: { select: { brand: true, model: true } },
+      cameraProfile: { select: { name: true } },
+    },
+  });
+
   const { avatar, ...profile } = user;
   return {
     exportedAt: new Date().toISOString(),
     profile: { ...profile, hasAvatar: avatar !== null },
+    presets,
   };
 }

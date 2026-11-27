@@ -13,11 +13,12 @@ import {
 
 // Branche la logique pure (session.ts) sur React : un état, des actions, et
 // les valeurs déjà calculées pour l'affichage.
-export function useSimulator(catalog: Catalog) {
+// `initial` permet de rouvrir un setup enregistré ; sans lui, session de départ.
+export function useSimulator(catalog: Catalog, initial?: SimulatorSession) {
   const [session, dispatch] = useReducer(
     (current: SimulatorSession, action: SessionAction) =>
       applySessionAction(current, action, catalog),
-    INITIAL_SESSION,
+    initial ?? INITIAL_SESSION,
   );
 
   const selection = useMemo(

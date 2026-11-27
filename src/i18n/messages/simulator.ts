@@ -8,7 +8,9 @@ const fr = {
     "Le catalogue de boîtiers et d'objectifs est vide. Lance « npm run db:seed » pour le remplir.",
   preview: {
     label: "Aperçu du cadrage : zoom ×{zoom}, ratio {ratio}",
-    note: "Scène illustrée : le flou dépend de la focale, de l'ouverture et de la distance au point net.",
+    note: "Rendu de test : des lignes de repère, sans photo pour l'instant.",
+    noteScene:
+      "Scène illustrée : le flou dépend de la focale, de l'ouverture et de la distance au point net.",
   },
   mode: {
     title: "Mode",
@@ -60,12 +62,6 @@ const fr = {
     belowReference:
       "Cette focale est plus large que la scène de référence : le rendu reste à sa largeur maximale.",
   },
-  scene: {
-    label: "Scène",
-    paysage: "Paysage",
-    rue: "Rue",
-    portrait: "Portrait",
-  },
   focus: {
     title: "Mise au point",
     hint: "Clique sur l'image pour choisir le point net.",
@@ -80,6 +76,9 @@ const fr = {
     exposure: "Exposition",
     scenes: "Scènes",
     sceneSoon: "Bientôt",
+    sceneChart: "Mire",
+    sceneLandscape: "Paysage",
+    scenePortrait: "Portrait",
     scenePackshot: "Packshot",
     sceneSport: "Sport",
     sceneStickman: "Stickman",
@@ -107,7 +106,9 @@ const en: DeepStrings<typeof fr> = {
     "The camera and lens catalogue is empty. Run “npm run db:seed” to fill it.",
   preview: {
     label: "Framing preview: zoom ×{zoom}, ratio {ratio}",
-    note: "Illustrated scene: the blur depends on focal length, aperture and distance from the focus point.",
+    note: "Test render: guide lines only, no photo yet.",
+    noteScene:
+      "Illustrated scene: the blur depends on focal length, aperture and distance from the focus point.",
   },
   mode: {
     title: "Mode",
@@ -158,12 +159,6 @@ const en: DeepStrings<typeof fr> = {
     belowReference:
       "This focal length is wider than the reference scene: the render stays at its widest.",
   },
-  scene: {
-    label: "Scene",
-    paysage: "Landscape",
-    rue: "Street",
-    portrait: "Portrait",
-  },
   focus: {
     title: "Focus",
     hint: "Click the image to choose the sharp point.",
@@ -178,6 +173,9 @@ const en: DeepStrings<typeof fr> = {
     exposure: "Exposure",
     scenes: "Scenes",
     sceneSoon: "Soon",
+    sceneChart: "Test chart",
+    sceneLandscape: "Landscape",
+    scenePortrait: "Portrait",
     scenePackshot: "Packshot",
     sceneSport: "Sport",
     sceneStickman: "Stickman",
@@ -205,7 +203,9 @@ const de: DeepStrings<typeof fr> = {
     "Der Katalog mit Kameras und Objektiven ist leer. Führe „npm run db:seed“ aus, um ihn zu füllen.",
   preview: {
     label: "Vorschau des Bildausschnitts: Zoom ×{zoom}, Verhältnis {ratio}",
-    note: "Illustrierte Szene: Die Unschärfe hängt von Brennweite, Blende und Abstand zum Fokuspunkt ab.",
+    note: "Testdarstellung: nur Hilfslinien, noch kein Foto.",
+    noteScene:
+      "Illustrierte Szene: Die Unschärfe hängt von Brennweite, Blende und Abstand zum Fokuspunkt ab.",
   },
   mode: {
     title: "Modus",
@@ -257,12 +257,6 @@ const de: DeepStrings<typeof fr> = {
     belowReference:
       "Diese Brennweite ist weitwinkliger als die Referenzszene: Die Darstellung bleibt bei ihrer größten Weite.",
   },
-  scene: {
-    label: "Szene",
-    paysage: "Landschaft",
-    rue: "Straße",
-    portrait: "Porträt",
-  },
   focus: {
     title: "Fokus",
     hint: "Klicke auf das Bild, um den scharfen Punkt zu wählen.",
@@ -277,6 +271,9 @@ const de: DeepStrings<typeof fr> = {
     exposure: "Belichtung",
     scenes: "Szenen",
     sceneSoon: "Bald",
+    sceneChart: "Testbild",
+    sceneLandscape: "Landschaft",
+    scenePortrait: "Porträt",
     scenePackshot: "Packshot",
     sceneSport: "Sport",
     sceneStickman: "Strichmännchen",

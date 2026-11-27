@@ -7,10 +7,32 @@ const fr = {
   count: "{count} setup(s)",
   emptyTitle: "Aucun setup pour l'instant",
   emptyText:
-    "Règle un cadrage dans le simulateur : tu pourras bientôt l'enregistrer ici pour le retrouver en un clic.",
+    "Règle un cadrage dans le simulateur puis enregistre-le : tu le retrouveras ici en un clic.",
   newTile: "Nouveau setup",
   newTileHint: "Ouvrir le simulateur",
-  soon: "L'enregistrement des setups arrive bientôt.",
+  saved: "Setup enregistré.",
+  renamed: "Setup renommé.",
+  deleted: "Setup supprimé.",
+  notFound: "Ce setup n'existe plus.",
+  limitReached:
+    "Tu as atteint la limite de {count} setups. Supprime-en un pour en enregistrer un autre.",
+  save: {
+    title: "Enregistrer ce setup",
+    label: "Nom du setup",
+    placeholder: "Ex. Portrait 85 mm",
+    viewAll: "Voir mes setups",
+  },
+  tile: {
+    open: "Ouvrir",
+    favorite: "Mettre en favori",
+    unfavorite: "Retirer des favoris",
+    rename: "Renommer",
+    delete: "Supprimer",
+    confirmDelete: "Confirmer",
+    nameLabel: "Nom du setup",
+    generalMode: "Mode général",
+    invalidState: "Réglages illisibles",
+  },
   open: "Ouvrir le simulateur",
 };
 
@@ -21,10 +43,32 @@ const en: DeepStrings<typeof fr> = {
   count: "{count} setup(s)",
   emptyTitle: "No setups yet",
   emptyText:
-    "Dial in a framing in the simulator: soon you will be able to save it here and get it back in one click.",
+    "Dial in a framing in the simulator, then save it: you will find it here in one click.",
   newTile: "New setup",
   newTileHint: "Open the simulator",
-  soon: "Saving setups is coming soon.",
+  saved: "Setup saved.",
+  renamed: "Setup renamed.",
+  deleted: "Setup deleted.",
+  notFound: "This setup no longer exists.",
+  limitReached:
+    "You have reached the limit of {count} setups. Delete one to save another.",
+  save: {
+    title: "Save this setup",
+    label: "Setup name",
+    placeholder: "E.g. 85 mm portrait",
+    viewAll: "View my setups",
+  },
+  tile: {
+    open: "Open",
+    favorite: "Add to favourites",
+    unfavorite: "Remove from favourites",
+    rename: "Rename",
+    delete: "Delete",
+    confirmDelete: "Confirm",
+    nameLabel: "Setup name",
+    generalMode: "General mode",
+    invalidState: "Unreadable settings",
+  },
   open: "Open the simulator",
 };
 
@@ -35,10 +79,32 @@ const de: DeepStrings<typeof fr> = {
   count: "{count} Setup(s)",
   emptyTitle: "Noch keine Setups",
   emptyText:
-    "Stelle im Simulator einen Bildausschnitt ein: bald kannst du ihn hier speichern und mit einem Klick wiederfinden.",
+    "Stelle im Simulator einen Bildausschnitt ein und speichere ihn: Du findest ihn hier mit einem Klick wieder.",
   newTile: "Neues Setup",
   newTileHint: "Simulator öffnen",
-  soon: "Das Speichern von Setups kommt bald.",
+  saved: "Setup gespeichert.",
+  renamed: "Setup umbenannt.",
+  deleted: "Setup gelöscht.",
+  notFound: "Dieses Setup existiert nicht mehr.",
+  limitReached:
+    "Du hast das Limit von {count} Setups erreicht. Lösche eines, um ein weiteres zu speichern.",
+  save: {
+    title: "Dieses Setup speichern",
+    label: "Name des Setups",
+    placeholder: "Z. B. 85-mm-Porträt",
+    viewAll: "Meine Setups ansehen",
+  },
+  tile: {
+    open: "Öffnen",
+    favorite: "Zu Favoriten hinzufügen",
+    unfavorite: "Aus Favoriten entfernen",
+    rename: "Umbenennen",
+    delete: "Löschen",
+    confirmDelete: "Bestätigen",
+    nameLabel: "Name des Setups",
+    generalMode: "Allgemeiner Modus",
+    invalidState: "Unlesbare Einstellungen",
+  },
   open: "Simulator öffnen",
 };
 

@@ -1,4 +1,4 @@
-// Les trois scènes. Les coordonnées vont de 0 à 1200 (largeur) et de 0 à 800
+// Les scènes dessinées. Les coordonnées vont de 0 à 1200 (largeur) et de 0 à 800
 // (hauteur) ; les formes de fond dépassent volontairement du dessin pour que
 // le flou ne laisse pas de bords clairs.
 // Les couches sont rangées du plus loin (profondeur 1) au plus proche (0).
@@ -35,8 +35,8 @@ const layer = (depth: number, ...shapes: Shape[]): Layer => ({ depth, shapes });
 // Un point de la scène, exprimé en unités du dessin, converti en 0..1
 const at = (x: number, y: number) => ({ x: x / W, y: y / H });
 
-const paysage: Scene = {
-  id: "paysage",
+const landscape: Scene = {
+  id: "landscape",
   width: W,
   height: H,
   layers: [
@@ -122,96 +122,6 @@ const paysage: Scene = {
   },
 };
 
-const rue: Scene = {
-  id: "rue",
-  width: W,
-  height: H,
-  layers: [
-    layer(
-      1,
-      rect(-300, -300, 1800, 1100, "#d8dee6"),
-      rect(-100, 260, 260, 540, "#aeb8c6"),
-      rect(180, 170, 200, 630, "#aeb8c6"),
-      rect(400, 300, 240, 500, "#aeb8c6"),
-      rect(660, 200, 220, 600, "#aeb8c6"),
-      rect(900, 280, 260, 520, "#aeb8c6"),
-      rect(1140, 230, 360, 570, "#aeb8c6"),
-    ),
-    layer(
-      0.8,
-      rect(-300, 340, 430, 460, "#c4876c"),
-      rect(430, 310, 320, 490, "#d4b483"),
-      rect(760, 350, 260, 450, "#b9c4cf"),
-      rect(1020, 320, 480, 480, "#c4876c"),
-      rect(-200, 400, 60, 80, "#4b5563", 0.5),
-      rect(-80, 400, 60, 80, "#4b5563", 0.5),
-      rect(40, 400, 60, 80, "#4b5563", 0.5),
-      rect(470, 370, 60, 80, "#4b5563", 0.5),
-      rect(590, 370, 60, 80, "#4b5563", 0.5),
-      rect(800, 410, 60, 80, "#4b5563", 0.5),
-      rect(920, 410, 60, 80, "#4b5563", 0.5),
-      rect(1080, 380, 60, 80, "#4b5563", 0.5),
-      rect(1200, 380, 60, 80, "#4b5563", 0.5),
-    ),
-    layer(0.7, rect(-300, 640, 1800, 60, "#6b7280")),
-    layer(
-      0.6,
-      rect(700, 560, 300, 80, "#b23a3a"),
-      poly(
-        [
-          [760, 560],
-          [800, 510],
-          [920, 510],
-          [960, 560],
-        ],
-        "#b23a3a",
-      ),
-      poly(
-        [
-          [785, 555],
-          [815, 520],
-          [865, 520],
-          [865, 555],
-        ],
-        "#cfe3f2",
-      ),
-      poly(
-        [
-          [875, 520],
-          [915, 520],
-          [940, 555],
-          [875, 555],
-        ],
-        "#cfe3f2",
-      ),
-      circle(770, 645, 32, "#222222"),
-      circle(930, 645, 32, "#222222"),
-    ),
-    layer(0.45, rect(-300, 700, 1800, 60, "#5f6672")),
-    layer(
-      0.35,
-      rect(250, 250, 16, 420, "#2d3748"),
-      rect(250, 250, 90, 14, "#2d3748"),
-      circle(345, 270, 22, "#fde68a"),
-    ),
-    layer(
-      0.3,
-      rect(455, 600, 24, 110, "#2b3a55"),
-      rect(485, 600, 24, 110, "#2b3a55"),
-      rect(430, 490, 20, 100, "#e07a5f"),
-      rect(516, 490, 20, 100, "#e07a5f"),
-      rect(448, 480, 70, 130, "#e07a5f"),
-      circle(483, 445, 34, "#f2c9a0"),
-    ),
-    layer(0.15, rect(-300, 760, 1800, 100, "#545a66")),
-  ],
-  focusTargets: {
-    near: at(600, 790),
-    subject: at(483, 540),
-    far: at(930, 300),
-  },
-};
-
 const portrait: Scene = {
   id: "portrait",
   width: W,
@@ -291,5 +201,196 @@ const portrait: Scene = {
   },
 };
 
+const packshot: Scene = {
+  id: "packshot",
+  width: W,
+  height: H,
+  layers: [
+    layer(
+      1,
+      rect(-300, -300, 1800, 1100, "#e8e4dc"),
+      // Fenêtre éclairée au fond : une grande tache lumineuse qui se floute
+      rect(780, 110, 300, 270, "#fdf6e3"),
+      rect(925, 110, 10, 270, "#cfc7b6"),
+      rect(780, 240, 300, 10, "#cfc7b6"),
+    ),
+    layer(
+      0.8,
+      rect(110, 470, 190, 120, "#b5651d"),
+      circle(150, 430, 60, "#4f7d4a"),
+      circle(210, 390, 70, "#5a8f54"),
+      circle(265, 440, 55, "#4f7d4a"),
+    ),
+    layer(0.6, rect(-300, 560, 1800, 70, "#c9a273")),
+    layer(0.4, rect(-300, 630, 1800, 80, "#b88a5a")),
+    layer(
+      0.35,
+      rect(840, 500, 120, 125, "#2f6f8f"),
+      rect(840, 545, 120, 22, "#ffffff", 0.85),
+    ),
+    layer(
+      0.3,
+      // Le produit : une bouteille
+      rect(555, 400, 90, 235, "#1e5a8a"),
+      poly(
+        [
+          [555, 400],
+          [575, 360],
+          [625, 360],
+          [645, 400],
+        ],
+        "#1e5a8a",
+      ),
+      rect(588, 312, 24, 55, "#1e5a8a"),
+      rect(582, 292, 36, 22, "#d9d9d9"),
+      rect(555, 470, 90, 85, "#f5f1e6"),
+      rect(555, 505, 90, 10, "#c0392b"),
+      rect(565, 410, 9, 215, "#ffffff", 0.35),
+    ),
+    layer(0.2, rect(-300, 710, 1800, 100, "#a97c4d")),
+    layer(
+      0.08,
+      poly(
+        [
+          [1500, 800],
+          [1500, 650],
+          [1000, 720],
+          [900, 800],
+        ],
+        "#e9d8c4",
+        0.95,
+      ),
+    ),
+  ],
+  focusTargets: {
+    near: at(1120, 770),
+    subject: at(600, 500),
+    far: at(930, 190),
+  },
+};
+
+const sport: Scene = {
+  id: "sport",
+  width: W,
+  height: H,
+  layers: [
+    layer(
+      1,
+      rect(-300, -300, 1800, 1100, "#cfe4f2"),
+      rect(-300, 330, 1800, 170, "#8a93a6"),
+      rect(-300, 330, 1800, 22, "#6b7488"),
+      // Le public : de petites taches de couleur
+      circle(60, 410, 11, "#e4572e"),
+      circle(180, 440, 11, "#f2c14e"),
+      circle(290, 400, 11, "#3a86ff"),
+      circle(420, 435, 11, "#ffffff"),
+      circle(520, 405, 11, "#e4572e"),
+      circle(690, 440, 11, "#f2c14e"),
+      circle(790, 410, 11, "#3a86ff"),
+      circle(910, 435, 11, "#ffffff"),
+      circle(1020, 400, 11, "#e4572e"),
+      circle(1130, 440, 11, "#f2c14e"),
+    ),
+    layer(
+      0.85,
+      rect(-300, 495, 1800, 60, "#2a4d9b"),
+      rect(-100, 508, 130, 32, "#ffffff"),
+      rect(300, 508, 130, 32, "#ffffff"),
+      rect(700, 508, 130, 32, "#ffffff"),
+      rect(1100, 508, 130, 32, "#ffffff"),
+    ),
+    layer(
+      0.7,
+      rect(-300, 555, 1800, 100, "#c0583a"),
+      rect(-300, 602, 1800, 5, "#ffffff"),
+    ),
+    layer(
+      0.5,
+      rect(-300, 655, 1800, 75, "#b34d32"),
+      rect(-300, 695, 1800, 6, "#ffffff"),
+    ),
+    layer(
+      0.3,
+      // Le coureur
+      poly(
+        [
+          [582, 560],
+          [560, 618],
+          [520, 662],
+          [535, 672],
+          [588, 632],
+          [602, 568],
+        ],
+        "#e0b48e",
+      ),
+      poly(
+        [
+          [612, 558],
+          [642, 612],
+          [692, 642],
+          [682, 657],
+          [626, 627],
+          [598, 568],
+        ],
+        "#e0b48e",
+      ),
+      poly(
+        [
+          [580, 520],
+          [618, 520],
+          [621, 560],
+          [578, 560],
+        ],
+        "#222222",
+      ),
+      poly(
+        [
+          [575, 420],
+          [625, 420],
+          [615, 522],
+          [580, 522],
+        ],
+        "#1d7a5a",
+      ),
+      poly(
+        [
+          [578, 430],
+          [555, 472],
+          [530, 457],
+          [560, 425],
+        ],
+        "#e0b48e",
+      ),
+      poly(
+        [
+          [622, 430],
+          [655, 462],
+          [690, 447],
+          [630, 422],
+        ],
+        "#e0b48e",
+      ),
+      circle(603, 392, 26, "#e0b48e"),
+      rect(588, 440, 26, 22, "#ffffff"),
+    ),
+    layer(
+      0.12,
+      rect(-300, 745, 1800, 100, "#2f7d3a"),
+      circle(200, 735, 34, "#ffffff"),
+      circle(200, 735, 12, "#2b2b2b", 0.8),
+    ),
+  ],
+  focusTargets: {
+    near: at(200, 735),
+    subject: at(603, 470),
+    far: at(700, 420),
+  },
+};
+
 // Tuple : SCENES[0] existe toujours, même avec noUncheckedIndexedAccess.
-export const SCENES: readonly [Scene, ...Scene[]] = [paysage, rue, portrait];
+export const SCENES: readonly [Scene, ...Scene[]] = [
+  landscape,
+  portrait,
+  packshot,
+  sport,
+];

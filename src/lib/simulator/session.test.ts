@@ -99,10 +99,7 @@ describe("sélection du boîtier", () => {
   });
 
   it("mode Général : le choix est mémorisé sans toucher aux réglages", () => {
-    const result = run(INITIAL_SESSION, {
-      type: "selectProfile",
-      id: "reflex",
-    });
+    const result = run(INITIAL_SESSION, { type: "selectProfile", id: "reflex" });
     expect(result.profileId).toBe("reflex");
     expect(result.sim).toEqual(INITIAL_SESSION.sim);
   });
@@ -118,10 +115,7 @@ describe("sélection du boîtier", () => {
 });
 
 describe("sélection de l'objectif", () => {
-  const inProfileMode = run(INITIAL_SESSION, {
-    type: "setMode",
-    mode: "PROFILE",
-  });
+  const inProfileMode = run(INITIAL_SESSION, { type: "setMode", mode: "PROFILE" });
 
   it("ignore un identifiant inconnu", () => {
     expect(run(inProfileMode, { type: "selectLens", id: "?" })).toBe(
@@ -168,9 +162,9 @@ describe("autres actions", () => {
   });
 
   it("n'acceptent que les ratios débloqués par le boîtier", () => {
-    expect(
-      run(ready, { type: "setRatio", value: "16:9" }).sim.ratio.value,
-    ).toBe("16:9");
+    expect(run(ready, { type: "setRatio", value: "16:9" }).sim.ratio.value).toBe(
+      "16:9",
+    );
     expect(run(ready, { type: "setRatio", value: "5:7" })).toBe(ready);
   });
 
@@ -182,7 +176,7 @@ describe("autres actions", () => {
 describe("changement de scène", () => {
   const focused = run(
     INITIAL_SESSION,
-    { type: "setScene", sceneId: "rue" },
+    { type: "setScene", sceneId: "sport" },
     { type: "setFocusPoint", point: { x: 0.1, y: 0.2 } },
   );
 
@@ -194,7 +188,7 @@ describe("changement de scène", () => {
   });
 
   it("la même scène garde la mise au point choisie", () => {
-    const result = run(focused, { type: "setScene", sceneId: "rue" });
+    const result = run(focused, { type: "setScene", sceneId: "sport" });
     expect(result.sim.focusPoint).toEqual({ x: 0.1, y: 0.2 });
   });
 });

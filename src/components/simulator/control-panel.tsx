@@ -6,8 +6,8 @@ import { Label } from "@/components/ui/label";
 import { LOCALE_TAGS } from "@/i18n/config";
 import { useLocale, useT } from "@/i18n/client";
 import { availableRatios } from "@/lib/optics/ratios";
-import type { Point, Scene } from "@/lib/simulator/scenes";
 import { ratioContext } from "@/lib/simulator/reducer";
+import type { Point, Scene } from "@/lib/simulator/scenes";
 import type {
   CatalogLens,
   CatalogProfile,
@@ -20,11 +20,11 @@ const SELECT_CLASS =
 
 type Props = {
   sim: SimulatorState;
+  scene: Scene | null; // null : la mire, qui n'a pas de mise au point
   profiles: readonly CatalogProfile[];
   lenses: readonly CatalogLens[];
   profile: CatalogProfile | null;
   lens: CatalogLens | null;
-  scene: Scene;
   dispatch: (action: SessionAction) => void;
 };
 
@@ -41,11 +41,11 @@ function groupByBrand(lenses: readonly CatalogLens[]) {
 
 export function ControlPanel({
   sim,
+  scene,
   profiles,
   lenses,
   profile,
   lens,
-  scene,
   dispatch,
 }: Props) {
   const t = useT();
@@ -55,8 +55,6 @@ export function ControlPanel({
 
   const isProfile = sim.mode === "PROFILE";
   const ratios = availableRatios(ratioContext(sim.mode, { profile, lens }));
-  const currentFocus = sim.focusPoint ?? scene.focusTargets.subject;
-  const sameFocus = (a: Point, b: Point) => a.x === b.x && a.y === b.y;
   const lensGroups = useMemo(() => groupByBrand(lenses), [lenses]);
 
   function lensLabel(item: CatalogLens) {
@@ -66,6 +64,10 @@ export function ControlPanel({
         : `${item.focalMin}–${item.focalMax} mm`;
     return `${item.model}, ${focal}, f/${number(item.maxAperture)}`;
   }
+
+  const targets = scene ? scene.focusTargets : null;
+  const currentFocus = targets ? (sim.focusPoint ?? targets.subject) : null;
+  const sameFocus = (a: Point, b: Point) => a.x === b.x && a.y === b.y;
 
   return (
     <div className="space-y-7">
@@ -165,6 +167,39 @@ export function ControlPanel({
         </>
       )}
 
+      {targets && currentFocus && (
+        <fieldset className="space-y-2">
+          <legend className="mb-2 text-sm font-semibold">
+            {t("simulator.focus.title")}
+          </legend>
+          <div className="grid grid-cols-3 gap-1 rounded-lg bg-muted p-1">
+            {(["near", "subject", "far"] as const).map((key) => {
+              const active = sameFocus(currentFocus, targets[key]);
+              return (
+                <Button
+                  key={key}
+                  type="button"
+                  size="sm"
+                  variant={active ? "default" : "ghost"}
+                  aria-pressed={active}
+                  onClick={() =>
+                    dispatch({
+                      type: "setFocusPoint",
+                      point: targets[key],
+                    })
+                  }
+                >
+                  {t(`simulator.focus.${key}`)}
+                </Button>
+              );
+            })}
+          </div>
+          <p className="text-xs text-muted-foreground">
+            {t("simulator.focus.hint")}
+          </p>
+        </fieldset>
+      )}
+
       <fieldset className="space-y-3">
         <legend className="mb-2 text-sm font-semibold">
           {t("simulator.panel.framing")}
@@ -211,38 +246,6 @@ export function ControlPanel({
       >
         {t("common.reset")}
       </Button>
-
-      <fieldset className="space-y-2">
-        <legend className="mb-2 text-sm font-semibold">
-          {t("simulator.focus.title")}
-        </legend>
-        <div className="flex flex-wrap gap-2">
-          {(["near", "subject", "far"] as const).map((key) => (
-            <Button
-              key={key}
-              type="button"
-              size="sm"
-              variant={
-                sameFocus(currentFocus, scene.focusTargets[key])
-                  ? "default"
-                  : "outline"
-              }
-              aria-pressed={sameFocus(currentFocus, scene.focusTargets[key])}
-              onClick={() =>
-                dispatch({
-                  type: "setFocusPoint",
-                  point: scene.focusTargets[key],
-                })
-              }
-            >
-              {t(`simulator.focus.${key}`)}
-            </Button>
-          ))}
-        </div>
-        <p className="text-xs text-muted-foreground">
-          {t("simulator.focus.hint")}
-        </p>
-      </fieldset>
     </div>
   );
 }
